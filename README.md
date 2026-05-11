@@ -1,4 +1,6 @@
-# Uploading temperature sensor data in Thing Speak cloud
+## NAME : Rajalakshmi R
+## REG NO : 212223110037
+# EX-03 Uploading temperature sensor data in Thing Speak cloud
 
 # AIM:
 To monitor the temperature sensor data in the Thing speak using an ESP32 controller.
@@ -71,10 +73,67 @@ Automatically act on your data and communicate using third-party services like T
 
 
 # PROGRAM:
+```
+#include "ThingSpeak.h"
+#include <WiFi.h>
+#include "DHT.h"
 
+char ssid[]="SEC_IOT"; //for wifi
+char pass[]="sec@3000";
+WiFiClient client;
+
+const int out=2; //pin for temperature sensor data
+float temperature=0; // Initialize temperature
+float humidity=0;
+DHT dht(out,DHT11);
+
+unsigned long myChannelField= 3360485; //Channel ID
+const int TemperatureField=1; // Field for temperature data
+const int HumidityField=2; // field for humidity data
+const char* myWriteAPIKey="CURDTT6WNIPT2122"; // writeAPI Key
+
+void setup() {
+  Serial.begin(115200);
+  ThingSpeak.begin(client);
+  dht.begin();
+  pinMode(out,INPUT); //Set pin mode to input for tmp sen
+}
+
+void loop() {
+  if(WiFi.status()!=WL_CONNECTED)
+  {
+    Serial.println(ssid);
+    while(WiFi.status()!=WL_CONNECTED)
+    {
+      WiFi.begin(ssid,pass);
+      Serial.print(".");
+      delay(5000);
+    }
+    Serial.println("\nConnected");
+  }
+  float temperature =dht.readTemperature();
+  float humidity=dht.readHumidity();
+  Serial.print("Temperature");
+  Serial.print(temperature);
+  Serial.print(" *C");
+
+  Serial.print("Humidity");
+  Serial.print(humidity);
+  Serial.print(" g.m-3");
+
+ThingSpeak.setField(TemperatureField,temperature);
+ThingSpeak.setField(HumidityField,humidity);
+ThingSpeak.writeFields(myChannelField,myWriteAPIKey);
+delay(5000);
+}
+
+```
 # CIRCUIT DIAGRAM:
+<img width="1024" height="1280" alt="image" src="https://github.com/user-attachments/assets/782660f5-9beb-41d0-8134-2d3c07c727f4" />
 
 # OUTPUT:
+<img width="1432" height="467" alt="image" src="https://github.com/user-attachments/assets/a1921e52-16b9-40d0-b26b-ff7124bb0f06" />
+
 
 # RESULT:
 
