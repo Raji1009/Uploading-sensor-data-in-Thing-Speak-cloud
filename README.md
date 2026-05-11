@@ -132,7 +132,7 @@ delay(5000);
 <img width="1024" height="1280" alt="image" src="https://github.com/user-attachments/assets/782660f5-9beb-41d0-8134-2d3c07c727f4" />
 
 # OUTPUT:
-<img width="1432" height="467" alt="image" src="https://github.com/user-attachments/assets/a1921e52-16b9-40d0-b26b-ff7124bb0f06" />
+<img width="1438" height="822" alt="image" src="https://github.com/user-attachments/assets/74844484-0cf4-4065-b74d-642dc471a261" />
 
 
 # RESULT:
